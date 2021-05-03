@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { 
     Container,
     InputArea,
@@ -18,8 +19,20 @@ import LockIcon from '../../assets/lock.svg'
 
 export default () => {
 
+    const navigation = useNavigation();
+
     const [emailField, setEmailField] = useState('');
     const [passwordField, setPasswordField] = useState('');
+
+    const handleSignButtonClick = () => {
+
+    }
+
+    const handleMessageButtonClick = () => {
+        navigation.reset({
+            routes:[{name:'SignUp'}]
+        })
+    }
 
     return (
         <Container>
@@ -43,12 +56,12 @@ export default () => {
                     password = {true}
                 />
 
-                <CustomButton>
+                <CustomButton onPress={handleSignButtonClick}>
                     <CustomButtonText>LOGIN</CustomButtonText>
                 </CustomButton>
             </InputArea>
 
-            <SignMessageButton>
+            <SignMessageButton onPress={handleMessageButtonClick}>
             <SignMessageButtonText>Ainda não possui uma conta?</SignMessageButtonText>
             <SignMessageButtonTextBold>Cadastre-se</SignMessageButtonTextBold>
             </SignMessageButton>
