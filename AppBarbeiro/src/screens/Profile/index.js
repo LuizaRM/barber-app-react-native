@@ -5,7 +5,7 @@ import {Container} from './styles';
 export default () => {
     return (
         <Container>
-            <Text>Home</Text>
+            <Text>Profile</Text>
         </Container>
     );
 }
