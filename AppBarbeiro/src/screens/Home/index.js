@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plataform } from 'react-native'; //verificar plataforma que o dispositivo esta rodando
+import { Plataform , RefreshControl} from 'react-native'; //verificar plataforma que o dispositivo esta rodando
 import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { request, PERMISSIONS } from 'react-native-permissions'; //pedir permissão para localização
@@ -34,6 +34,7 @@ export default () => {
     const [coords, setCoords] = useState(null);
     const [loading, setLoading] = useState(false);
     const [list, setList] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     const handleLocationFinder = async () => {
         setCoords(null);
@@ -82,10 +83,17 @@ export default () => {
         getBarbers();
     }, []);
 
+    const onRefresh = () => {
+        setRefreshing(false);
+        getBarbers();
+    }
+
     return (
 
         <Container>
-            <Scroller>
+            <Scroller refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            } >
                 <HeaderArea>
                     <HeaderTitle numberOfLines={2}>Encontre seu barbeiro preferido</HeaderTitle>
                     <SearchButton  onPress={()=>navigation.navigate('Search')}>
